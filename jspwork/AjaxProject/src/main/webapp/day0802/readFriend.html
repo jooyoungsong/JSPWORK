@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Dongle&family=Gaegu:wght@700&family=Nanum+Pen+Script&family=Single+Day&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<title>Insert title here</title>
+<style>
+	#result{
+		width: 500px;
+		height: 500px;
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+<button type="button" id="jbtn" class="btn btn-outline-info">json파일읽기(myfriend)</button>
+<div id="result">출력</div>
+
+<script>
+	$("#jbtn").click(function(){
+		
+		$("#result").empty();
+		 
+		 var s="";
+		 
+		 	$.ajax({
+				 data:"get",
+				 url:"friendToJson.jsp",
+				 dataType:"json",
+				 success:function(data){
+					 
+					 s+="<table class='table table-bordered'>";
+					 s+="<tr class='table-warning'>";
+					 s+="<th>순서</th><th>이름</th><th>번호</th><th>주소</th><th>가입일</th>";
+					 s+="</tr>"
+					 
+					$.each(data,function(idx,ele){
+						
+						s+="<tr>";
+						s+="<td>"+ele.num+"</td>";
+						s+="<td>"+ele.fname+"</td>";
+						s+="<td>"+ele.fhp+"</td>";
+						s+="<td>"+ele.faddr+"</td>";
+						s+="<td>"+ele.gaipday+"</td>";
+						s+="</tr>";
+						
+						/*s+="<div class='alert alert-info'>";
+						s+="Num: "+ele.num+"<br>";
+						s+="Friend Name: "+ele.fname+"<br>";
+						s+="Friend Hp: "+ele.fhp+"<br>";
+						s+="Friend Address: "+ele.faddr+"<br>";
+						s+="Gaipday: "+ele.gaipday+"<br>";
+						s+="</div>";*/
+					});
+					s+="</table>"
+					 $("#result").append(s);
+				 }
+			 });
+	});
+</script>
+
+</body>
+</html>
